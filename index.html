@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Papaer Scissors</title>
+    <script>
+        /* Randomly returns Rock, Paper, or Scissors */
+        function computerPlay() {
+            choice = getRandom();
+            switch(choice) {
+                case 0:
+                    return "rock";
+                case 1:
+                    return "paper";
+                case 2: 
+                    return "scissors";
+                default: 
+                    return "Oops! Lizard";
+            }
+        }
+
+        /* Generates a random number between one and three, inclusive */
+        function getRandom() {
+            return Math.floor(Math.random() * 3); 
+        }
+        
+        /* Given player selection and computer selction, carries out
+        a single round of rock, paper, scissors */
+        function playRound(playerSelection, computerSelection) {
+            let playerWin = true;
+            if (playerSelection.toLowerCase() === computerSelection) {
+                return "It's a Tie!";
+            } else if (playerSelection.toLowerCase() === "rock") {
+                if (computerSelection === "paper") {
+                    playerWin = false;
+                }
+            } else if (playerSelection.toLowerCase() === "paper") {
+                if (computerSelection === "scissors") {
+                    playerWin = false;
+                }
+            } else {
+                if (computerSelection === "rock") {
+                    playerWin = false;
+                }
+            }                
+            return getResults(playerWin, playerSelection, computerSelection);
+        }
+
+        function getResults(playerWin, playerSelection, computerSelection) {
+            return `You ${playerWin ? "win" : "lose"}! ${playerWin ? playerSelection : computerSelection} beats ${playerWin ? computerSelection : playerSelection}`; 
+        }
+
+        function game() {
+            let playerSelection;
+            let playerWins = 0;
+            let computerWins = 0;
+            let results;
+            let winner;
+            for (let i = 0; i < 5; i++) {
+                playerSelection = window.prompt("Please choose rock, paper, or scissors :)", "rock");
+                results = playRound(playerSelection, computerPlay());
+                console.log(results);
+                results.includes("win") ? playerWins++ : computerWins++;
+            }
+             playerWins === 3 ? winner = "player" : winner = "computer";
+             declareWinner(winner);
+        }
+
+        function declareWinner(winner) {
+            console.log(`${winner} wins!`);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
